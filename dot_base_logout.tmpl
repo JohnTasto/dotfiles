@@ -1,0 +1,25 @@
+#######
+# ANY #
+#######
+
+
+{{ if eq .chezmoi.os "linux" -}}
+#########
+# LINUX #
+#########
+
+
+# when leaving the console clear the screen to increase privacy
+[ "$SHLVL" -eq "1" ] && [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
+
+
+{{ else if eq .chezmoi.os "darwin" -}}
+##########
+# DARWIN #
+##########
+
+
+{{ end -}}
+#######
+# ANY #
+#######

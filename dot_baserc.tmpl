@@ -1,0 +1,120 @@
+#######
+# ANY #
+#######
+
+
+alias l="ls -AF"
+alias la="ls -aF"
+alias lf="ls -A"
+alias laf="ls -a"
+
+alias ll="ls -AFl"
+alias lla="ls -aFl"
+alias llf="ls -Al"
+alias llaf="ls -al"
+
+alias lll="ls -AFLl"
+alias llla="ls -aFLl"
+alias lllf="ls -ALl"
+alias lllaf="ls -aLl"
+
+alias cd..="cd .."
+alias ..="cd .."
+alias cd~="cd ~"
+alias ~="cd ~"
+alias cd-="cd -"
+
+# # Safe file operations
+# alias mv="mv -i"
+# alias cp="cp -i"
+# alias rm="rm -i"        # takes way too long
+
+alias mkdirp="mkdir -p"
+
+alias rmrf="rm -rf"
+
+export PUSHD_SILENT
+
+
+{{ if eq .chezmoi.os "linux" -}}
+#########
+# LINUX #
+#########
+
+
+# editor
+export EDITOR=code
+export VISUAL="$EDITOR"
+
+# X11 (official support coming soon?)
+# export DISPLAY=:0
+# export LIBGL_ALWAYS_INDIRECT=1
+
+# Override high DPI scaling in Windows
+# Set to Scaling performed by: Application
+export GDK_SCALE=2
+
+# NVM
+# export NVM_DIR="$HOME/.nvm"
+#                                        v-- is this hyphen a typo?
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Docker for Windows (no longer needed in WSL2?)
+# export DOCKER_HOST=tcp://localhost:2375
+# export DOCKER_TLS_VERIFY=1
+
+# ssh-ident - /usr/bin/ssh is diverted to /usr/bin/ssh.binary
+export BINARY_SSH="/usr/bin/ssh.original"
+
+# NIX
+[ -s "$HOME/.nix-profile/etc/profile.d/nix.sh" ] && \. "$HOME/.nix-profile/etc/profile.d/nix.sh"
+
+
+{{ else if eq .chezmoi.os "darwin" -}}
+##########
+# DARWIN #
+##########
+
+
+# Sublime Text
+export EDITOR='subl --new-window --wait'
+alias st="subl"
+
+
+# Golang
+export GOROOT=$(go env GOROOT)
+export GOPATH="$HOME/MEGA/Golang"
+export PATH="$GOPATH/bin:$PATH"
+
+
+# RVM
+
+# # Add RVM to PATH for scripting
+# export PATH="$PATH:$HOME/.rvm/bin"
+
+# # Load RVM into a shell session *as a function*
+# [ -s "$HOME/.rvm/scripts/rvm" ] && \. "$HOME/.rvm/scripts/rvm"
+
+
+# Miniconda
+export PATH="/Users/john/miniconda3/bin:$PATH"
+
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"
+
+
+# Higher searching limit in Homebrew
+export HOMEBREW_GITHUB_API_TOKEN="{{- (index (lastpass "keys/homebrew") 0).note.githubApiToken -}}"
+
+
+# Travis
+[ -s "$HOME/.travis/travis.sh" ] && \. "$HOME/.travis/travis.sh"
+
+
+{{ end -}}
+#######
+# ANY #
+#######

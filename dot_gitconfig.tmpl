@@ -1,0 +1,37 @@
+[user]
+	name = John Tasto
+	email = 5026892+JohnTasto@users.noreply.github.com
+
+
+{{ if eq .chezmoi.os "linux" -}}
+
+
+[core]
+	editor = gedit -s
+	excludesfile = ~/.gitignore_global
+
+
+{{ else if eq .chezmoi.os "darwin" -}}
+
+
+[merge]
+	ff = false
+[core]
+	editor = subl --new-window --wait
+	excludesfile = /Users/john/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[commit]
+	template = /Users/john/.stCommitMsg
+
+
+{{ end -}}

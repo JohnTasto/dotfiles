@@ -1,0 +1,26 @@
+#######
+# ANY #
+#######
+[ -s "$HOME/.profile" ] && \. "$HOME/.profile"
+
+
+{{ if eq .chezmoi.os "linux" -}}
+#########
+# LINUX #
+#########
+
+
+[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
+[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+
+
+{{ else if eq .chezmoi.os "darwin" -}}
+##########
+# DARWIN #
+##########
+
+
+{{ end -}}
+#######
+# ANY #
+#######

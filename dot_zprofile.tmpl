@@ -1,0 +1,24 @@
+#######
+# ANY #
+#######
+
+
+[ -s "$HOME/.base_profile" ] && emulate sh -c "source \"$HOME/.base_profile\""
+
+
+{{ if eq .chezmoi.os "linux" -}}
+#########
+# LINUX #
+#########
+
+
+{{ else if eq .chezmoi.os "darwin" -}}
+##########
+# DARWIN #
+##########
+
+
+{{ end -}}
+#######
+# ANY #
+#######

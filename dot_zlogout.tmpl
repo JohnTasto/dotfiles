@@ -1,0 +1,24 @@
+#######
+# ANY #
+#######
+
+
+{{ if eq .chezmoi.os "linux" -}}
+#########
+# LINUX #
+#########
+
+
+{{ else if eq .chezmoi.os "darwin" -}}
+##########
+# DARWIN #
+##########
+
+
+{{ end -}}
+#######
+# ANY #
+#######
+
+
+[ -s "$HOME/.base_logout" ] && emulate sh -c "source \"$HOME/.base_logout\""
