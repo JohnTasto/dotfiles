@@ -1,37 +1,41 @@
 [user]
-	name = John Tasto
-	email = 5026892+JohnTasto@users.noreply.github.com
+  name = John Tasto
+  email = 5026892+JohnTasto@users.noreply.github.com
 
 
 {{ if eq .chezmoi.os "linux" -}}
 
 
 [core]
-	editor = code --new-window --wait
-	excludesfile = ~/.gitignore_global
+  editor = code --new-window --wait
+  excludesfile = ~/.gitignore_global
+[diff]
+  tool = default-difftool
+[difftool "default-difftool"]
+  cmd = code --new-window --wait --diff \"$LOCAL\" \"$REMOTE\"
 
 
 {{ else if eq .chezmoi.os "darwin" -}}
 
 
 [merge]
-	ff = false
+  ff = false
 [core]
-	editor = subl --new-window --wait
-	excludesfile = /Users/john/.gitignore_global
+  editor = subl --new-window --wait
+  excludesfile = /Users/john/.gitignore_global
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
 [commit]
-	template = /Users/john/.stCommitMsg
+  template = /Users/john/.stCommitMsg
 
 
 {{ end -}}
