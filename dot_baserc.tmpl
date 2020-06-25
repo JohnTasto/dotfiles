@@ -3,20 +3,13 @@
 #######
 
 
-alias l="ls -AF"
-alias la="ls -aF"
-alias lf="ls -A"
-alias laf="ls -a"
+alias l="ls --all --group-directories-first"
+alias ll="ls -l --all --group-directories-first"
+alias lll="ls -l --all --dereference --group-directories-first"
 
-alias ll="ls -AFl"
-alias lla="ls -aFl"
-alias llf="ls -Al"
-alias llaf="ls -al"
-
-alias lll="ls -AFLl"
-alias llla="ls -aFLl"
-alias lllf="ls -ALl"
-alias lllaf="ls -aLl"
+alias lt="ls -t --all --reverse --group-directories-first"
+alias llt="ls -lt --all --reverse --group-directories-first"
+alias lllt="ls -lt --all --reverse --dereference --group-directories-first"
 
 alias cd..="cd .."
 alias ..="cd .."
