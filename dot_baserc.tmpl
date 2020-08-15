@@ -35,17 +35,28 @@ export PUSHD_SILENT
 #########
 
 
+wsl_ip=$(ifconfig eth0 | grep 'inet ' | cut -d\  -f10)
+win_ip=$(ipconfig.exe | grep 'Ethernet 3' -A6 | sed 's/\r$//' | grep 'IPv4' | cut -d\  -f17)
+# # Same result:
+# win_ip=$(ipconfig.exe | grep 'Ethernet 3' -A6 | sed 's/\r$//' | awk '/IPv4/ { print $14 }')
+
 # editor
 export EDITOR=code
 export VISUAL="$EDITOR"
 
 # X11 (official support coming soon?)
-# export DISPLAY=:0
-# export LIBGL_ALWAYS_INDIRECT=1
+export DISPLAY=$win_ip:0
+export LIBGL_ALWAYS_INDIRECT=1
 
 # Override high DPI scaling in Windows
-# Set to Scaling performed by: Application
+# Set to 'Scaling performed by: Application'
 export GDK_SCALE=2
+
+# PulseAudio
+export PULSE_SERVER=tcp:$win_ip
+pulse_file="/d/OneDrive/Config/pulseaudio-1.1/etc/pulse/default.pa"
+pulse_config="load-module module-native-protocol-tcp auth-ip-acl=$wsl_ip auth-anonymous=1"
+[ -f "$pulse_file" ] && sed -i "61s|.*|$pulse_config|" $pulse_file
 
 # NVM
 # export NVM_DIR="$HOME/.nvm"
@@ -53,7 +64,7 @@ export GDK_SCALE=2
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# Docker for Windows (no longer needed in WSL2?)
+# Docker for Windows (no longer needed in WSL2)
 # export DOCKER_HOST=tcp://localhost:2375
 # export DOCKER_TLS_VERIFY=1
 
